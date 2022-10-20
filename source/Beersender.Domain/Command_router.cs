@@ -1,16 +1,17 @@
 ﻿using Beersender.Domain.Beer_packages.Commands;
 using Beersender.Domain.Command_handlers;
+using Beersender.Domain.Infrastructure;
 
 namespace Beersender.Domain;
 
 public class Command_router
 {
-    private readonly Func<Guid, IEnumerable<object>> event_stream;
-    private readonly Action<object> publish_event;
+    private readonly Func<Guid, IEnumerable<Event>> event_stream;
+    private readonly Action<Event> publish_event;
 
     public Command_router(
-        Func<Guid, IEnumerable<object>> Event_stream,
-        Action<object> Publish_event)
+        Func<Guid, IEnumerable<Event>> Event_stream,
+        Action<Event> Publish_event)
     {
         event_stream = Event_stream;
         publish_event = Publish_event;
