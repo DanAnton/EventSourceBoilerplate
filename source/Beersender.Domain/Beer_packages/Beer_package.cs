@@ -9,7 +9,7 @@ public class Beer_package : Aggregate
     private Guid _id;
     private bool _isValid;
     private Shipping_label _shippingLabel;
-    private string _validationErrorMessage;
+    private string _status;
 
     public override void Apply(object @event)
     {
@@ -19,19 +19,11 @@ public class Beer_package : Aggregate
                 _id = package_created.Package_id;
                 return;
             case Shipping_label_added shipping_label_added:
-                if (shipping_label_added.Shipping_label.Is_valid())
-                {
-                    _shippingLabel = shipping_label_added.Shipping_label;
-                    _isValid = true;
-                }
-                else
-                {
-                    _isValid = false;
-                }
+                _isValid = shipping_label_added.Shipping_label.Is_valid();
+                _shippingLabel = shipping_label_added.Shipping_label;
                 return;
             case Package_sent package_sent:
-                return;
-            case Package_sent_failed package_sent_failed:
+                _status = package_sent.success ? "Success" : "Failure";
                 return;
             default:
                 throw new NotImplementedException("Command type not implemented;");
@@ -63,11 +55,8 @@ public class Beer_package : Aggregate
         yield return new Shipping_label_added(command.AggregateId, command.Shipping_label);
     }
 
-    private IEnumerable<object> Try_Send_package(Send_Package command)
+    private static IEnumerable<object> Try_Send_package(Send_Package command)
     {
-        if (!_isValid)
-            yield return new Package_sent_failed(command.AggregateId, "Error");
-        else
-            yield return new Package_sent(command.AggregateId);
+        yield return new Package_sent(command.AggregateId, command.shipping_label.Is_valid());
     }
 }
