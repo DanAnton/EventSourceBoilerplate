@@ -13,7 +13,7 @@ internal class Beer_package : Aggregate
 {
     public Guid? Package_id { get; private set; }
     public Shipping_label? Shipping_label { get; private set; }
-
+    public bool? Sent;
     public override void Apply(object @event)
     {
         switch (@event)
@@ -23,6 +23,12 @@ internal class Beer_package : Aggregate
                 break;
             case Shipping_label_added shipping_label_added:
                 Shipping_label = shipping_label_added.Shipping_label;
+                break;
+            case Package_sent package_sent:
+                Sent = true;
+                break;
+            case Package_failed_to_send package_failed_to_send:
+                Sent = false;
                 break;
             default:
                 throw new NotImplementedException("Event type not implemented;");
@@ -36,9 +42,9 @@ internal class Beer_package : Aggregate
             case Create_package create_package:
                 return Create_new_package(create_package);
             case Add_shipping_label add_shipping_label:
-                if (!add_shipping_label.Shipping_label.Is_valid()) { throw new Exception("Is not valid"); };
-
                 return Add_shipping_label(add_shipping_label);
+            case Send_package send_package:
+                return Send_package(send_package);
             default:
                 throw new NotImplementedException("Command type not implemented;");
         }
@@ -51,6 +57,15 @@ internal class Beer_package : Aggregate
     private IEnumerable<object> Add_shipping_label(Add_shipping_label command)
     {
         yield return new Shipping_label_added(command.Shipping_label);
+    }
+    private IEnumerable<object> Send_package(Send_package command)
+    {
+        if (Shipping_label!=null)
+        {
+            yield return new Package_sent(command.Package_id);
+            yield break;
+        }
+        yield return new Package_failed_to_send(command.Package_id);
     }
 }
 

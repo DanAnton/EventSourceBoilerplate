@@ -16,7 +16,7 @@ internal class Package_creator
         publish_event = Publish_event;
     }
 
-    public void Handle(Create_package command)
+    public void Handle(ICommand command)
     {
         var previous_events = event_stream(command.Package_id);
 
