@@ -6,17 +6,17 @@ namespace Beersender.tests
 {
     public partial class When_label_package
     {
-        private Guid label1_id = Guid.NewGuid();
+        private Guid package_id = Guid.NewGuid();
         private Shipping_label label = new Shipping_label(Shipping_provider.DHL, "123456789");
 
         private Label_package Label_package1()
         {
-            return new Label_package(label1_id, label);
+            return new Label_package(package_id, label);
         }
 
-        private Package_labeled Package1_labeled()
+        private Shipping_label_added Add_shipping_label2()
         {
-            return new Package_labeled(label1_id, label);
+            return new Shipping_label_added(package_id, label);
         }
     }
 }

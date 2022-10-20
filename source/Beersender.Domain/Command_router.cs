@@ -32,6 +32,12 @@ public class Command_router
                     handler.Handle(label_package);
                     return;
                 }
+                case Send_package send_package:
+                {
+                    var handler = new Package_sender(event_stream, publish_event);
+                    handler.Handle(send_package);
+                    return;
+                }
         }
     }
 }

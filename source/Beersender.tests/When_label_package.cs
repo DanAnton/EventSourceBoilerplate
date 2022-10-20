@@ -16,7 +16,7 @@ namespace Beersender.tests
                 );
 
             Then(
-                Package1_labeled()
+                Add_shipping_label2()
                 );
         }
     }
