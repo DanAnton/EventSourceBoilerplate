@@ -1,36 +1,24 @@
-using Beersender.Domain;
+using Beersender.Domain.Beer_package.Commands;
+using Beersender.Domain.Beer_package.Events;
 
-namespace Beersender.tests;
-
-public abstract class BeerSender_test {
-    public BeerSender_test() { 
-
-    }
-
-    private object[] _events;
-    protected void Given(params object[] events) {
-        _events = events;
-    }
-    private List<object> _new_events = new();
-    protected void When(object command)
-    {
-        new Command_router(_ => _events,@event => _new_events.Add(@event));
-    }
-
-
-    protected void Then(params object[] events)
-    {
-      //  expected_events.Should();
-    }
-}
-public class When_create_package : BeerSender_test
+namespace Beersender.tests
 {
-    [Fact]
-    public void The_package_is_created()
+    public partial class When_create_package : Beersender_test
     {
+        [Fact]
+        public void Then_package_is_created()
+        {
         Guid package_id = Guid.NewGuid();
-        Given();
-       // When(new Create_package(package_id));
-        Then();
+            Given();
+
+
+            When(
+                Create_package1()
+                );
+
+            Then(
+                Package1_created()
+                );
+        }
     }
 }
