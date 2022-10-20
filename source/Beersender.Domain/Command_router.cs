@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using Beersender.Domain.Beer_package.Commands;
+using Beersender.Domain.Beer_package.Events;
 
 namespace Beersender.Domain;
 
@@ -21,6 +19,11 @@ public class Command_router
 
     public void Handle_command(object command)
     {
-
+        switch (command)
+        {
+            case Create_package create_package:
+                publish_event(new Package_created(create_package.Package_id));
+                return;
+        }
     }
 }
