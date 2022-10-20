@@ -2,18 +2,17 @@
 
 public enum Shipping_provider
 {
-    UPS,
-    DHL,
-    PostNL,
-    FedEx
+	UPS,
+	DHL,
+	PostNL,
+	FedEx
 }
 public record Shipping_label(
-    Shipping_provider Shipping_provider,
-    string Tracking_code)
+	Shipping_provider Shipping_provider,
+	string Tracking_code)
 {
-    public bool Is_valid()
-    {
-        return Tracking_code.Length > 6;
-    }
+	public bool Is_valid()
+	{
+		return Tracking_code.Length > 6;
+	}
 }
-

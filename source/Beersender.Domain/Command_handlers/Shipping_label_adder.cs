@@ -5,33 +5,33 @@ namespace Beersender.Domain.Command_handlers;
 
 public class Shipping_label_adder
 {
-    private readonly Func<Guid, IEnumerable<object>> event_stream;
-    private readonly Action<object> publish_event;
+	private readonly Func<Guid, IEnumerable<object>> event_stream;
+	private readonly Action<object> publish_event;
 
-    public Shipping_label_adder(
-        Func<Guid, IEnumerable<object>> Event_stream,
-        Action<object> Publish_event)
-    {
-        event_stream = Event_stream;
-        publish_event = Publish_event;
-    }
+	public Shipping_label_adder(
+		Func<Guid, IEnumerable<object>> Event_stream,
+		Action<object> Publish_event)
+	{
+		event_stream = Event_stream;
+		publish_event = Publish_event;
+	}
 
-    public void Handle(Add_shipping_label command)
-    {
-        var previous_events = event_stream(command.Package_id);
+	public void Handle(Add_shipping_label command)
+	{
+		var previous_events = event_stream(command.Package_id);
 
-        var aggregate = new Beer_package();
+		var aggregate = new Beer_package();
 
-        foreach (var previous_event in previous_events)
-        {
-            aggregate.Apply(previous_event);
-        }
+		foreach (var previous_event in previous_events)
+		{
+			aggregate.Apply(previous_event);
+		}
 
-        var resulting_events = aggregate.Handle(command);
+		var resulting_events = aggregate.Handle(command);
 
-        foreach (var resulting_event in resulting_events)
-        {
-            publish_event(resulting_event);
-        }
-    }
+		foreach (var resulting_event in resulting_events)
+		{
+			publish_event(resulting_event);
+		}
+	}
 }
