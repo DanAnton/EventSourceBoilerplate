@@ -22,6 +22,8 @@ internal class Beer_package : Aggregate
         {
             case Create_package create_package:
                 return Create_new_package(create_package);
+            case Add_shipping_label add_shipping_label:
+                return Add_shipping_label(add_shipping_label);
             default:
                 throw new NotImplementedException("Command type not implemented;");
         }
@@ -30,6 +32,11 @@ internal class Beer_package : Aggregate
     private IEnumerable<object> Create_new_package(Create_package command)
     {
         yield return new Package_created(command.Package_id);
+    }
+
+    private IEnumerable<object> Add_shipping_label(Add_shipping_label command)
+    {
+        yield return new Shipping_label_added(command.Label_id);
     }
 }
 

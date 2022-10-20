@@ -11,4 +11,3 @@ if(ReferenceEquals(beer1, beer2))
 Console.WriteLine(beer1);
 
 var beer3 = beer1 with {Beer = "Classic"};
-Console.WriteLine(beer3);
