@@ -1,6 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Beersender.Domain.Beer_package.Commands;
-using Beersender.Domain.Beer_package.Events;
+﻿using Beersender.Domain.Beer_packages.Commands;
+using Beersender.Domain.Command_handlers;
 
 namespace Beersender.Domain;
 
@@ -22,7 +21,8 @@ public class Command_router
         switch (command)
         {
             case Create_package create_package:
-                publish_event(new Package_created(create_package.Package_id));
+                var handler = new Package_creator(event_stream, publish_event);
+                handler.Handle(create_package);
                 return;
         }
     }

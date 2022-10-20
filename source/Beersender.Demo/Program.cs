@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Beersender.Domain.Beer_package;
+using Beersender.Domain.Beer_packages;
 
 var beer1 = new Beer_name("Gouden Carolus", "Quadrupel Whisky Infused");
 var beer2 = new Beer_name("Gouden Carolus", "Quadrupel Whisky Infused");
