@@ -54,9 +54,4 @@ internal class Beer_package : Aggregate
 		}
 
 	}
-
-	public Shipping_label Get_shipping_label(Guid Package_id)
-	{
-		return new Shipping_label(Shipping_provider.DHL, "1234567");
-	}
 }
