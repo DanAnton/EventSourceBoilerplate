@@ -2,9 +2,9 @@
 
 namespace Beersender.Domain.Beer_packages.Commands;
 
-public record struct Create_package(Guid Package_id) : ICommand
+public record struct Add_shipping_label(Guid Package_id, Shipping_label Shipping_label) : ICommand
 {
-    internal class Handler : IHandler<Create_package>
+    internal class Handler : IHandler<Add_shipping_label>
     {
         private readonly Func<Guid, IEnumerable<object>> event_stream;
         private readonly Action<object> publish_event;
@@ -15,7 +15,7 @@ public record struct Create_package(Guid Package_id) : ICommand
             publish_event = Publish_event;
         }
 
-        public void Handle(Create_package command)
+        public void Handle(Add_shipping_label command)
         {
             var previous_events = event_stream(command.Package_id);
 

@@ -1,5 +1,5 @@
 ﻿using Beersender.Domain.Beer_packages.Commands;
-using Beersender.Domain.Command_handlers;
+using Beersender.Domain.Beer_packages.Interfaces;
 
 namespace Beersender.Domain;
 
@@ -18,11 +18,17 @@ public class Command_router
 
     public void Handle_command(object command)
     {
+        IHandler<ICommand> handler;
+
         switch (command)
         {
             case Create_package create_package:
-                var handler = new Package_creator(event_stream, publish_event);
-                handler.Handle(create_package);
+                var create = new Create_package.Handler(event_stream, publish_event);
+                create.Handle(create_package);
+                return;
+            case Add_shipping_label add_shipping_label:
+                var add_label = new Add_shipping_label.Handler(event_stream, publish_event);
+                add_label.Handle(add_shipping_label);
                 return;
         }
     }

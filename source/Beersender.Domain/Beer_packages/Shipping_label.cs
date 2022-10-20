@@ -7,9 +7,7 @@ public enum Shipping_provider
     PostNL,
     FedEx
 }
-public record Shipping_label(
-    Shipping_provider Shipping_provider,
-    string Tracking_code)
+public record Shipping_label(Shipping_provider Shipping_provider, string Tracking_code)
 {
     public bool Is_valid()
     {

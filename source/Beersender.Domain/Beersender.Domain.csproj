@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Beer_packages\Interfaces\" />
+  </ItemGroup>
+
 </Project>
