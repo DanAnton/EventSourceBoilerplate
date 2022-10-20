@@ -7,8 +7,8 @@ namespace Beersender.Tests;
 
 public abstract class BeersenderTest
 {
-    private Event[] _events;
-    private List<Event> _newEvents = new();
+    private Event[] _events = null!;
+    private readonly List<Event> _newEvents = new();
 
     protected void Given(params Event[] events)
     {
@@ -20,7 +20,7 @@ public abstract class BeersenderTest
         new CommandRouter(_ => _events, @event => _newEvents.Add(@event)).HandleCommand(command);
     }
 
-    protected void Then(params object[] expectedEvents)
+    protected void Then(params Event[] expectedEvents)
     {
         _newEvents.Should().BeEquivalentTo(expectedEvents);
     }

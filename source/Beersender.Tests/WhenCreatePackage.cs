@@ -12,13 +12,11 @@ public partial class WhenCreatePackage : BeersenderTest
         When(CreatePackage1); // Command
         Then(PackageCreated1); // New events
     }
-    
-    
 }
 
 public partial class WhenCreatePackage
 {
     private readonly Guid _packageId1 = Guid.NewGuid();
-    private CreatePackage CreatePackage1 => new CreatePackage(_packageId1);
-    private PackageCreated PackageCreated1 => new PackageCreated(_packageId1);
+    private CreatePackage CreatePackage1 => new (_packageId1);
+    private PackageCreated PackageCreated1 => new (_packageId1);
 }
