@@ -2,4 +2,5 @@
 
 public interface Command
 {
+    public Guid Aggregate_id { get; }
 }
