@@ -1,3 +1,3 @@
-﻿namespace Beersender.Domain.BeerPackage.Events;
+﻿namespace Beersender.Domain.BeerPackages.Events;
 
-public record struct PackageCreated(Guid PackageId);
+public record PackageCreated(Guid PackageId) : Event(PackageId);

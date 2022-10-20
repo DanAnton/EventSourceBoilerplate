@@ -1,3 +1,11 @@
-﻿namespace Beersender.Domain.BeerPackage.Commands;
+﻿using Beersender.Domain.BeerPackages.Events;
 
-public record struct CreatePackage(Guid PackageId);
+namespace Beersender.Domain.BeerPackages.Commands;
+
+public record CreatePackage(Guid PackageId) : Command(PackageId)
+{
+    public override IEnumerable<Event> CreateEvents()
+    {
+        yield return new PackageCreated(PackageId);
+    }
+}

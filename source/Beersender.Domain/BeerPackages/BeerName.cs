@@ -1,6 +1,3 @@
-﻿namespace Beersender.Domain.BeerPackage;
+﻿namespace Beersender.Domain.BeerPackages;
 
-public record BeerName(string Brewery, string Beer)
-{
-    
-}
+public record BeerName(string Brewery, string Beer);

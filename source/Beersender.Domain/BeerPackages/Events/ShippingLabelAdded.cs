@@ -1,3 +1,3 @@
 namespace Beersender.Domain.BeerPackages.Events;
 
-public record struct ShippingLabelAdded(Guid PackageId);
+public record ShippingLabelAdded(Guid PackageId) : Event(PackageId);

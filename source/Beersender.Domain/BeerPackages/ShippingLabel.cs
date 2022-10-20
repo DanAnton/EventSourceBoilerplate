@@ -1,4 +1,4 @@
-﻿namespace Beersender.Domain.BeerPackage;
+﻿namespace Beersender.Domain.BeerPackages;
 
 public record ShippingLabel(ShippingProvider ShippingProvider, string TrackingCode)
 {

@@ -1,6 +1,3 @@
 ﻿namespace Beersender.Domain.BeerPackages.Events;
 
-public class Event
-{
-    
-}
+public record Event(Guid PackageId);

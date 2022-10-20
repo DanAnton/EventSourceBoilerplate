@@ -2,7 +2,7 @@ using Beersender.Domain.BeerPackages;
 using Beersender.Domain.BeerPackages.Commands;
 using Beersender.Domain.BeerPackages.Events;
 
-namespace Beersender.Domain.CommandHandlers;
+namespace Beersender.Domain;
 
 public class Handler<TCommand> where TCommand : Command
 {

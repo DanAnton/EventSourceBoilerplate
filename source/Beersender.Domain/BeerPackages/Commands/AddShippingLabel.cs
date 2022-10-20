@@ -1,6 +1,11 @@
-﻿namespace Beersender.Domain.BeerPackages.Commands;
+﻿using Beersender.Domain.BeerPackages.Events;
 
-public class AddShippingLabel
+namespace Beersender.Domain.BeerPackages.Commands;
+
+public record AddShippingLabel(Guid PackageId) : Command(PackageId)
 {
-    
+    public override IEnumerable<Event> CreateEvents()
+    {
+        yield return new ShippingLabelAdded(PackageId);
+    }
 }

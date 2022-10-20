@@ -1,6 +1,5 @@
 ﻿using Beersender.Domain.BeerPackages.Commands;
 using Beersender.Domain.BeerPackages.Events;
-using Beersender.Domain.CommandHandlers;
 
 namespace Beersender.Domain;
 

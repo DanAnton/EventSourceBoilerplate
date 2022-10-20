@@ -1,5 +1,4 @@
-﻿// ReSharper disable All
-namespace Beersender.Domain.BeerPackage;
+﻿namespace Beersender.Domain.BeerPackages;
 
 public enum ShippingProvider
 {

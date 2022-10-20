@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.Domain", "Beersender.Domain\Beersender.Domain.csproj", "{BF69FFB6-7E84-4F6C-B1C3-4ECB562285F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.Demo", "Beersender.Demo\Beersender.Demo.csproj", "{56D9E0FE-71EF-428F-93D9-95CB1C2B2C72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.Tests", "Beersender.Tests\Beersender.Tests.csproj", "{632CDB9C-2E09-494C-BEA7-49840FFB6572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BF69FFB6-7E84-4F6C-B1C3-4ECB562285F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF69FFB6-7E84-4F6C-B1C3-4ECB562285F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF69FFB6-7E84-4F6C-B1C3-4ECB562285F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56D9E0FE-71EF-428F-93D9-95CB1C2B2C72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D9E0FE-71EF-428F-93D9-95CB1C2B2C72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D9E0FE-71EF-428F-93D9-95CB1C2B2C72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D9E0FE-71EF-428F-93D9-95CB1C2B2C72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{632CDB9C-2E09-494C-BEA7-49840FFB6572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{632CDB9C-2E09-494C-BEA7-49840FFB6572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{632CDB9C-2E09-494C-BEA7-49840FFB6572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{632CDB9C-2E09-494C-BEA7-49840FFB6572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
