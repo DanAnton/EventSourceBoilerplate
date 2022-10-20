@@ -13,13 +13,16 @@ internal sealed class Beer_package : Aggregate
 {
     private Guid Package_id;
     private Shipping_label Shipping_label;
+    private bool Is_shipping_label_valid;
     public override void Apply(Package_event @event)
     {
         switch (@event)
         {
             case Package_created package_created_event: Package_id = package_created_event.Package_id; break;
-            case Shipping_label_added shipping_label_added_event: Shipping_label = shipping_label_added_event.Shipping_Label; break;
-
+            case Shipping_label_added shipping_label_added_event: 
+                Shipping_label = shipping_label_added_event.Shipping_Label;
+                Is_shipping_label_valid = shipping_label_added_event.isValid;
+                break;
         }
     }
 
@@ -49,7 +52,7 @@ internal sealed class Beer_package : Aggregate
     }
     private IEnumerable<Package_event> Send_package(Send_package command)
     {
-        if (Shipping_label.Is_valid())
+        if (Is_shipping_label_valid)
         {
             yield return new Package_sent(command.Package_id);
         }
