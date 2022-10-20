@@ -24,10 +24,10 @@ internal class Beer_package : Aggregate
             case Shipping_label_added shipping_label_added:
                 Shipping_label = shipping_label_added.Shipping_label;
                 break;
-            case Package_sent package_sent:
+            case Package_sent:
                 Sent = true;
                 break;
-            case Package_failed_to_send package_failed_to_send:
+            case Package_failed_to_send:
                 Sent = false;
                 break;
             default:
