@@ -1,4 +1,4 @@
-﻿namespace Beersender.tests;
+﻿namespace Beersender.Tests;
 
 public partial class When_send_package : Beer_package_test
 {

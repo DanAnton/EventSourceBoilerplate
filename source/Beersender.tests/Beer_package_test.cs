@@ -1,7 +1,7 @@
 ﻿using Beersender.Domain.Beer_packages;
 using Beersender.Domain.Beer_packages.Events;
 
-namespace Beersender.tests;
+namespace Beersender.Tests;
 
 public abstract class Beer_package_test : Beersender_test
 {

@@ -2,7 +2,7 @@ using Beersender.Domain;
 using Beersender.Domain.Infrastructure;
 using FluentAssertions;
 
-namespace Beersender.tests;
+namespace Beersender.Tests;
 
 public abstract class Beersender_test
 {

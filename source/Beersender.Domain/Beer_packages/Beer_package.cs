@@ -15,7 +15,7 @@ internal class Beer_package : Aggregate
     #region state
 
     private Guid? package_id = null;
-    private Shipping_label shipping_label = null;
+    private Shipping_label? shipping_label = null;
 
     #endregion
     public override void Apply(Event @event)

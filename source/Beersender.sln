@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beersender.Domain", "Beerse
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.Demo", "Beersender.Demo\Beersender.Demo.csproj", "{541FA7F9-03F4-4198-A52F-5C3F16A112A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.tests", "Beersender.tests\Beersender.tests.csproj", "{EFCA5636-7B14-48BD-A899-BD50295FB3A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.Tests", "Beersender.Tests\Beersender.Tests.csproj", "{EFCA5636-7B14-48BD-A899-BD50295FB3A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace Beersender.tests;
+﻿namespace Beersender.Tests;
 
 public partial class When_add_shipping_label : Beer_package_test
 {
