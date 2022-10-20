@@ -1,5 +1,4 @@
 ﻿using Beersender.Domain.Beer_packages.Commands;
-using Beersender.Domain.Beer_packages.Events;
 
 namespace Beersender.tests
 {
