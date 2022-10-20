@@ -1,24 +1,21 @@
 using Beersender.Domain.Beer_packages.Commands;
 using Beersender.Domain.Beer_packages.Events;
 
-namespace Beersender.tests
+namespace Beersender.tests;
+
+public partial class When_create_package : Beersender_test
 {
-    public partial class When_create_package : Beersender_test
+    [Fact]
+    public void Then_package_is_created()
     {
-        [Fact]
-        public void Then_package_is_created()
-        {
-        Guid package_id = Guid.NewGuid();
-            Given();
+        Given();
 
+        When(
+            Create_package1()
+            );
 
-            When(
-                Create_package1()
-                );
-
-            Then(
-                Package1_created()
-                );
-        }
+        Then(
+            Package1_created()
+            );
     }
 }

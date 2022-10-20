@@ -5,8 +5,8 @@ namespace Beersender.Domain;
 
 public class Command_router
 {
-    private readonly Func<Guid, IEnumerable<object>> _event_stream;
-    private readonly Action<object> _publish_event;
+    public readonly Func<Guid, IEnumerable<object>> _event_stream;
+    public readonly Action<object> _publish_event;
 
     public Command_router(
         Func<Guid, IEnumerable<object>> Event_stream,
@@ -21,8 +21,13 @@ public class Command_router
         switch (command)
         {
             case Create_package create_package:
-                var handler = new Package_creator(event_stream, publish_event);
-                handler.Handle(create_package);
+                var handler1 = new Package_creator(_event_stream, _publish_event);
+                handler1.Handle(create_package);
+                
+                return;
+            case Add_shipping_label add_shipping_label:
+                var handler2 = new Shipping_label_creator(_event_stream, _publish_event);
+                handler2.Handle(add_shipping_label);
                 return;
         }
     }

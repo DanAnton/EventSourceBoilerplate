@@ -11,9 +11,22 @@ internal abstract class Aggregate
 
 internal class Beer_package : Aggregate
 {
+    public Guid? Package_id { get; private set; }
+    public Shipping_label? Shipping_label { get; private set; }
+
     public override void Apply(object @event)
     {
-        throw new NotImplementedException();
+        switch (@event)
+        {
+            case Package_created package_created:
+                Package_id = package_created.Package_id;
+                break;
+            case Shipping_label_added shipping_label_added:
+                Shipping_label = shipping_label_added.Shipping_label;
+                break;
+            default:
+                throw new NotImplementedException("Event type not implemented;");
+        }
     }
 
     public override IEnumerable<object> Handle(object command)
@@ -22,6 +35,10 @@ internal class Beer_package : Aggregate
         {
             case Create_package create_package:
                 return Create_new_package(create_package);
+            case Add_shipping_label add_shipping_label:
+                if (!add_shipping_label.Shipping_label.Is_valid()) { throw new Exception("Is not valid"); };
+
+                return Add_shipping_label(add_shipping_label);
             default:
                 throw new NotImplementedException("Command type not implemented;");
         }
@@ -30,6 +47,10 @@ internal class Beer_package : Aggregate
     private IEnumerable<object> Create_new_package(Create_package command)
     {
         yield return new Package_created(command.Package_id);
+    }
+    private IEnumerable<object> Add_shipping_label(Add_shipping_label command)
+    {
+        yield return new Shipping_label_added(command.Shipping_label);
     }
 }
 

@@ -5,12 +5,14 @@ namespace Beersender.tests;
 
 public abstract class Beersender_test
 {
+    private object[] _events;
+    private List<object> _new_events = new();
+
     public Beersender_test()
     {
             
     }
 
-    private object[] _events;
     protected void Given(params object[] events)
     {
         _events = events;
@@ -22,7 +24,7 @@ public abstract class Beersender_test
         router.Handle_command(command);
     }
 
-    private List<object> _new_events = new();
+
 
     protected void Then(params object[] expected_events)
     {
