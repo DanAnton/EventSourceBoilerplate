@@ -1,31 +1,17 @@
 ﻿using Beersender.Domain.Beer_packages.Interfaces;
+using Beersender.Domain.Beer_packages.Shared;
 
 namespace Beersender.Domain.Beer_packages.Commands;
 
-public record struct Add_shipping_label(Guid Package_id, Shipping_label Shipping_label) : ICommand
+public record struct Add_shipping_label(Guid AggregateId, Shipping_label Shipping_label) : ICommand
 {
-    internal class Handler : IHandler<Add_shipping_label>
+
+    internal class Handler: CommandHandler<Add_shipping_label, Beer_package>
     {
-        private readonly Func<Guid, IEnumerable<object>> event_stream;
-        private readonly Action<object> publish_event;
 
-        public Handler(Func<Guid, IEnumerable<object>> Event_stream, Action<object> Publish_event)
+        public Handler(Func<Guid, IEnumerable<object>> Event_stream, Action<object> Publish_event) 
+            : base(Event_stream, Publish_event)
         {
-            event_stream = Event_stream;
-            publish_event = Publish_event;
-        }
-
-        public void Handle(Add_shipping_label command)
-        {
-            var previous_events = event_stream(command.Package_id);
-
-            var aggregate = new Beer_package();
-
-            foreach (var previous_event in previous_events) aggregate.Apply(previous_event);
-
-            var resulting_events = aggregate.Handle(command);
-
-            foreach (var resulting_event in resulting_events) publish_event(resulting_event);
         }
     }
 }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Beer_packages\Interfaces\" />
+    <Folder Include="Beer_packages\Shared\" />
   </ItemGroup>
 
 </Project>

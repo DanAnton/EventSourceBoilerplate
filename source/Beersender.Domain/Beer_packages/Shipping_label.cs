@@ -1,4 +1,6 @@
-﻿namespace Beersender.Domain.Beer_packages;
+﻿using Beersender.Domain.Beer_packages.Interfaces;
+
+namespace Beersender.Domain.Beer_packages;
 
 public enum Shipping_provider
 {
@@ -7,7 +9,7 @@ public enum Shipping_provider
     PostNL,
     FedEx
 }
-public record Shipping_label(Shipping_provider Shipping_provider, string Tracking_code)
+public record Shipping_label(Shipping_provider Shipping_provider, string Tracking_code): IRecord
 {
     public bool Is_valid()
     {
