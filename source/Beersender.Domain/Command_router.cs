@@ -24,6 +24,14 @@ public class Command_router
                 var handler = new Package_creator(event_stream, publish_event);
                 handler.Handle(create_package);
                 return;
+            case Add_shipping_label add_Shipping_Label:
+                var handler1 = new Label_Applier(event_stream, publish_event);
+                handler1.Handle(add_Shipping_Label);
+                return;
+            case Send_Package send_Package:
+                var handler2 = new Package_sender(event_stream, publish_event);
+                handler2.Handle(send_Package);
+                return;
         }
     }
 }
