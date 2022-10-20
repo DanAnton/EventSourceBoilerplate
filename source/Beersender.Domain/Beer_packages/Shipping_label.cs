@@ -13,7 +13,6 @@ public record Shipping_label(
 {
     public bool Is_valid()
     {
-        // TODO: implement proper checking on the label format
         return Tracking_code.Length > 6;
     }
 }
