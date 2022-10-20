@@ -26,6 +26,6 @@ public partial class When_send_package : Beer_package_test
             Send_package1());
 
         Then(
-            Package1_failed_to_send_because_no_beers());
+            Package1_failed_to_send_because_no_label());
     }
 }
