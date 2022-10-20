@@ -11,7 +11,7 @@ internal abstract class Aggregate
 
 internal sealed class Beer_package : Aggregate
 {
-    private Guid Package_id;
+    private Guid Package_id = Guid.Empty;
     private Shipping_label Shipping_label;
     private bool Is_shipping_label_valid;
     public override void Apply(Package_event @event)
@@ -19,7 +19,8 @@ internal sealed class Beer_package : Aggregate
         switch (@event)
         {
             case Package_created package_created_event: Package_id = package_created_event.Package_id; break;
-            case Shipping_label_added shipping_label_added_event: 
+            case Shipping_label_added shipping_label_added_event:
+                if (Package_id == Guid.Empty) break;
                 Shipping_label = shipping_label_added_event.Shipping_Label;
                 Is_shipping_label_valid = shipping_label_added_event.isValid;
                 break;
