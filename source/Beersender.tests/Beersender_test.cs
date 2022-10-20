@@ -5,11 +5,6 @@ namespace Beersender.tests;
 
 public abstract class Beersender_test
 {
-    public Beersender_test()
-    {
-            
-    }
-
     private object[] _events;
     protected void Given(params object[] events)
     {
