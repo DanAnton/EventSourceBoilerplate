@@ -21,9 +21,17 @@ public class Command_router
         switch (command)
         {
             case Create_package create_package:
-                var handler = new Package_creator(event_stream, publish_event);
-                handler.Handle(create_package);
-                return;
+                {
+                    var handler = new Package_creator(event_stream, publish_event);
+                    handler.Handle(create_package);
+                    return;
+                }
+                case Label_package label_package:
+                {
+                    var handler = new Package_labelor(event_stream, publish_event);
+                    handler.Handle(label_package);
+                    return;
+                }
         }
     }
 }
