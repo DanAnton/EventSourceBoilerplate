@@ -1,5 +1,4 @@
 using Beersender.Domain.Commands;
-using Beersender.Domain.Commands.Routers;
 using Beersender.Domain.Events;
 using FluentAssertions;
 
@@ -14,9 +13,9 @@ public abstract class Beersender_test
         _events.AddRange(events);
     }
 
-    protected void When(ICommand command)
+    protected void When<TCommand>(TCommand command) where TCommand : ICommand
     {
-        var router = new Beer_package_router(_ => _events, @event => _new_events.Add(@event));
+        var router = new Beer_package_router<TCommand>(_ => _events, @event => _new_events.Add(@event));
         router.Handle_command(command);
     }
 

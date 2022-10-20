@@ -71,7 +71,7 @@ internal class Beer_package : Aggregate
 
     private IEnumerable<IEvent> Send_this_package(Send_package command)
     {
-        if (shipping_label == null)
+        if (shipping_label is null)
         {
             yield return new Package_failed_to_send(command.Package_id, Send_fail_reason.No_shipping_label);
             yield break;

@@ -1,7 +1,7 @@
 ﻿using Beersender.Domain.Aggregates;
 using Beersender.Domain.Events;
 
-namespace Beersender.Domain.Commands.Handlers;
+namespace Beersender.Domain.Commands;
 
 internal class Beer_package_handler<TCommand, TAggregate>
     where TCommand : ICommand
@@ -10,7 +10,7 @@ internal class Beer_package_handler<TCommand, TAggregate>
     private readonly Func<Guid, IEnumerable<IEvent>> _event_stream;
     private readonly Action<IEvent> _publish_event;
 
-    protected Beer_package_handler(Func<Guid, IEnumerable<IEvent>> event_stream,
+    internal Beer_package_handler(Func<Guid, IEnumerable<IEvent>> event_stream,
         Action<IEvent> publish_event)
     {
         _event_stream = event_stream;
