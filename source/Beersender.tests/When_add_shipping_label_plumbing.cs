@@ -16,5 +16,15 @@ namespace Beersender.tests
         {
             return new Shipping_label_added(label_id);
         }
+
+        private Add_shipping_label Add_empty_shipping_label()
+        {
+            return new Add_shipping_label(Guid.Empty);
+        }
+
+        private Shipping_label_failed_to_add Shipping_label_failed_to_add()
+        {
+            return new Shipping_label_failed_to_add(Guid.Empty);
+        }
     }
 }

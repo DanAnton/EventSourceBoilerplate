@@ -20,5 +20,16 @@ namespace Beersender.tests
 
             Then(Label1_shipping_added());
         }
+
+        [Fact]
+        public void The_shipping_label_failed_to_add()
+        {
+            Given();
+
+            When(Add_empty_shipping_label()
+            );
+
+            Then(Shipping_label_failed_to_add());
+        }
     }
 }

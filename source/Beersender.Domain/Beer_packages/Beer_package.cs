@@ -36,7 +36,14 @@ internal class Beer_package : Aggregate
 
     private IEnumerable<object> Add_shipping_label(Add_shipping_label command)
     {
-        yield return new Shipping_label_added(command.Label_id);
+        if (command.IsValid())
+        {
+            yield return new Shipping_label_added(command.Label_id);
+        }
+        else
+        {
+            yield return new Shipping_label_failed_to_add(command.Label_id);
+        }
     }
 }
 
