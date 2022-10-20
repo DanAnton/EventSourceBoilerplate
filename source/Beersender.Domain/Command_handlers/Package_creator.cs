@@ -5,12 +5,12 @@ namespace Beersender.Domain.Command_handlers;
 
 internal class Package_creator
 {
-    private readonly Func<Guid, IEnumerable<object>> event_stream;
-    private readonly Action<object> publish_event;
+    private readonly Func<Guid, IEnumerable<IEvent>> event_stream;
+    private readonly Action<IEvent> publish_event;
 
     public Package_creator(
-        Func<Guid, IEnumerable<object>> Event_stream,
-        Action<object> Publish_event)
+        Func<Guid, IEnumerable<IEvent>> Event_stream,
+        Action<IEvent> Publish_event)
     {
         event_stream = Event_stream;
         publish_event = Publish_event;

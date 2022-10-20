@@ -5,27 +5,36 @@ namespace Beersender.tests;
 
 public abstract class Beersender_test
 {
-    public Beersender_test()
-    {
-            
-    }
+	private List<IEvent> _events = new();
+	private readonly List<IEvent> _new_events = new();
 
-    private object[] _events;
-    protected void Given(params object[] events)
-    {
-        _events = events;
-    }
+	protected void Given(params IEvent[] events)
+	{
+		_events = events.ToList();
+	}
 
-    protected void When(object command)
-    {
-        var router = new Command_router(_ => _events, @event => _new_events.Add(@event));
-        router.Handle_command(command);
-    }
+	protected void When(ICommand command)
+	{
+		var router = new Command_router(_ => _events, @event => _new_events.Add(@event));
+		router.Handle_command(command);
+	}
 
-    private List<object> _new_events = new();
+	protected void When(params ICommand[] commands)
+	{
+		var router = new Command_router(_ => _events, @event =>
+		{
+			_new_events.Add(@event);
+			_events.Add(@event);
+		});
 
-    protected void Then(params object[] expected_events)
-    {
-        _new_events.ToArray().Should().BeEquivalentTo(expected_events);
-    }
+		foreach (var command in commands)
+		{
+			router.Handle_command(command);
+		}
+	}
+
+	protected void Then(params IEvent[] expected_events)
+	{
+		_new_events.ToArray().Should().BeEquivalentTo(expected_events, options => options.RespectingRuntimeTypes());
+	}
 }
