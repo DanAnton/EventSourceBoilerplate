@@ -1,11 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Beersender.Domain.Beer_packages;
+using Beersender.Domain.Commands.Models;
 
-var beer1 = new Beer_name("Gouden Carolus", "Quadrupel Whisky Infused");
-var beer2 = new Beer_name("Gouden Carolus", "Quadrupel Whisky Infused");
+Shipping_label shipping_label1 = new(Shipping_provider.DHL, "DHL12345");
+Shipping_label shipping_label2 = new(Shipping_provider.FedEx, "FED98765");
 
-Console.WriteLine(beer1);
+Console.WriteLine(shipping_label1);
 
-var beer3 = beer1 with { Beer = "Classic" };
-Console.WriteLine(beer3);
+var shipping_label3 = shipping_label1 with { Tracking_code = "XYZ56789" };
+Console.WriteLine(shipping_label3);

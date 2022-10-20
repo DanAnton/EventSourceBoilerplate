@@ -1,17 +1,17 @@
-﻿using Beersender.Domain.Beer_packages;
-using Beersender.Domain.Infrastructure;
+﻿using Beersender.Domain.Aggregates;
+using Beersender.Domain.Events;
 
-namespace Beersender.Domain.Command_handlers;
+namespace Beersender.Domain.Commands.Handlers;
 
-internal class Command_handler<TCommand, TAggregate>
-    where TCommand : Command
+internal class Beer_package_handler<TCommand, TAggregate>
+    where TCommand : ICommand
     where TAggregate : Aggregate, new()
 {
-    private readonly Func<Guid, IEnumerable<Event>> _event_stream;
-    private readonly Action<Event> _publish_event;
+    private readonly Func<Guid, IEnumerable<IEvent>> _event_stream;
+    private readonly Action<IEvent> _publish_event;
 
-    protected Command_handler(Func<Guid, IEnumerable<Event>> event_stream,
-        Action<Event> publish_event)
+    protected Beer_package_handler(Func<Guid, IEnumerable<IEvent>> event_stream,
+        Action<IEvent> publish_event)
     {
         _event_stream = event_stream;
         _publish_event = publish_event;

@@ -1,27 +1,28 @@
-using Beersender.Domain;
-using Beersender.Domain.Infrastructure;
+using Beersender.Domain.Commands;
+using Beersender.Domain.Commands.Routers;
+using Beersender.Domain.Events;
 using FluentAssertions;
 
 namespace Beersender.Tests;
 
 public abstract class Beersender_test
 {
-    private readonly List<Event> _events = new();
-    protected void Given(params Event[] events)
+    private readonly List<IEvent> _events = new();
+    protected void Given(params IEvent[] events)
     {
         _events.Clear();
         _events.AddRange(events);
     }
 
-    protected void When(Command command)
+    protected void When(ICommand command)
     {
-        var router = new Command_router(_ => _events, @event => _new_events.Add(@event));
+        var router = new Beer_package_router(_ => _events, @event => _new_events.Add(@event));
         router.Handle_command(command);
     }
 
-    private readonly List<Event> _new_events = new();
+    private readonly List<IEvent> _new_events = new();
 
-    protected void Then(params Event[] expected_events)
+    protected void Then(params IEvent[] expected_events)
     {
         _new_events.ToArray().Should().Equal(expected_events);
     }

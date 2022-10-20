@@ -1,4 +1,4 @@
-﻿namespace Beersender.Domain.Beer_packages;
+﻿namespace Beersender.Domain.Commands.Models;
 
 public enum Shipping_provider
 {

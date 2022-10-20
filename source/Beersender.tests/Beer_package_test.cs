@@ -1,5 +1,5 @@
-﻿using Beersender.Domain.Beer_packages;
-using Beersender.Domain.Beer_packages.Events;
+﻿using Beersender.Domain.Commands.Models;
+using Beersender.Domain.Events;
 
 namespace Beersender.Tests;
 

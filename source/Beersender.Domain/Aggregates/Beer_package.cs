@@ -1,13 +1,13 @@
-﻿using Beersender.Domain.Beer_packages.Commands;
-using Beersender.Domain.Beer_packages.Events;
-using Beersender.Domain.Infrastructure;
+﻿using Beersender.Domain.Commands;
+using Beersender.Domain.Events;
+using Beersender.Domain.Commands.Models;
 
-namespace Beersender.Domain.Beer_packages;
+namespace Beersender.Domain.Aggregates;
 
 internal abstract class Aggregate
 {
-    public abstract void Apply(Event @event);
-    public abstract IEnumerable<Event> Handle(Command command);
+    public abstract void Apply(IEvent @event);
+    public abstract IEnumerable<IEvent> Handle(ICommand command);
 }
 
 internal class Beer_package : Aggregate
@@ -18,7 +18,7 @@ internal class Beer_package : Aggregate
     private Shipping_label? shipping_label = null;
 
     #endregion
-    public override void Apply(Event @event)
+    public override void Apply(IEvent @event)
     {
         switch (@event)
         {
@@ -43,7 +43,7 @@ internal class Beer_package : Aggregate
         shipping_label = shipping_label_added.Shipping_label;
     }
 
-    public override IEnumerable<Event> Handle(Command command)
+    public override IEnumerable<IEvent> Handle(ICommand command)
     {
         switch (command)
         {
@@ -59,17 +59,17 @@ internal class Beer_package : Aggregate
     }
 
 
-    private IEnumerable<Event> Create_new_package(Create_package command)
+    private IEnumerable<IEvent> Create_new_package(Create_package command)
     {
         yield return new Package_created(command.Package_id);
     }
 
-    private IEnumerable<Event> Add_new_shipping_label(Add_shipping_label command)
+    private IEnumerable<IEvent> Add_new_shipping_label(Add_shipping_label command)
     {
         yield return new Shipping_label_added(command.Package_id, command.Shipping_label);
     }
 
-    private IEnumerable<Event> Send_this_package(Send_package command)
+    private IEnumerable<IEvent> Send_this_package(Send_package command)
     {
         if (shipping_label == null)
         {
