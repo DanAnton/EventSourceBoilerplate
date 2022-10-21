@@ -3,40 +3,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Beersender.Domain.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
-namespace Beersender.API.Event_stream;
-
-public class EventContext : DbContext
-{
-    public EventContext(DbContextOptions<EventContext> options) : base(options)
-    {
-        
-    }
-    public DbSet<PersistedEvent> Events { get; set; }
-}
+namespace Beersender.API.EventStream;
 
 public class PersistedEvent
 {
+    private IEvent? _event;
     public int Id { get; set; }
     public Guid AggregateId { get; set; }
-    [MaxLength(256)]
-    public string EventType { get; set; }
-    public string EventBody { get; set; }
+
+    [MaxLength(256)] public string? EventType { get; set; }
+
+    public string? EventBody { get; set; }
     public DateTime Timestamp { get; set; }
 
-    Event _event;
     [NotMapped]
     [JsonIgnore]
-    public Event Event
+    public IEvent? Event
     {
         get
         {
-            if (_event == null)
+            if (_event == null && EventType != null)
             {
                 var type = Type.GetType(EventType);
-                _event = (Event)JsonSerializer.Deserialize(EventBody,type);
+                _event = (IEvent)JsonSerializer.Deserialize(EventBody, type)!;
             }
+
             return _event;
         }
         set
@@ -45,10 +37,9 @@ public class PersistedEvent
             {
                 _event = value;
 
-                EventType = _event.GetType().AssemblyQualifiedName;
-                EventBody = JsonSerializer.Serialize(_event, _event.GetType());
+                EventType = _event?.GetType().AssemblyQualifiedName;
+                EventBody = JsonSerializer.Serialize(_event, _event?.GetType()!);
             }
         }
     }
 }
-

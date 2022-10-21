@@ -1,7 +1,7 @@
 ﻿namespace Beersender.Domain.Infrastructure;
 
-public interface Event
+public interface IEvent
 {
 }
 
-public record Event_message(Guid Aggregate_id, Event Event);
+public record EventMessage(Guid AggregateId, IEvent Event);

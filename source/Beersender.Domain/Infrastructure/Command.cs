@@ -1,6 +1,6 @@
 ﻿namespace Beersender.Domain.Infrastructure;
 
-public interface Command
+public interface ICommand
 {
-    public Guid Aggregate_id { get; }
+    public Guid AggregateId { get; }
 }

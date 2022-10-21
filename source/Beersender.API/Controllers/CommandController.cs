@@ -2,24 +2,23 @@
 using Beersender.Domain.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Beersender.API.Controllers
+namespace Beersender.API.Controllers;
+
+[Route("api/command")]
+[ApiController]
+public class CommandController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CommandController : ControllerBase
+    private readonly CommandRouter _router;
+
+    public CommandController(CommandRouter router)
     {
-        private readonly Command_router _router;
+        _router = router;
+    }
 
-        public CommandController(Command_router router)
-        {
-            _router = router;
-        }
-
-        [HttpPost]
-        public IActionResult PostCommand([FromBody] Command command)
-        {
-            _router.Handle_command(command);
-            return Ok();
-        }
+    [HttpPost]
+    public IActionResult PostCommand([FromBody] ICommand command)
+    {
+        _router.Handle_command(command);
+        return Ok();
     }
 }

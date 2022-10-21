@@ -1,4 +1,4 @@
-using Beersender.API.Event_stream;
+using Beersender.API.EventStream;
 using Beersender.API.JsonConverters;
 using Beersender.API.Read_store;
 using Beersender.API.ReadProjections;
@@ -11,17 +11,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddHostedService<EventPollingService>();
-builder.Services.AddSingleton<Event_router>();
+builder.Services.AddSingleton<EventRouter>();
 
-builder.Services.AddSingleton<Projection, PackageStatusUpdater>();
+builder.Services.AddSingleton<IProjection, PackageStatusUpdater>();
 
-builder.Services.AddDbContext<ReadContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Read_storage;Integrated Security=SSPI"));
-builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Event_storage;Integrated Security=SSPI"));
-builder.Services.AddTransient<Sql_event_store>();
-builder.Services.AddTransient<Command_router>(services =>
+builder.Services.AddDbContext<ReadContext>(b =>
+    b.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=Read_storage;Integrated Security=SSPI"));
+builder.Services.AddDbContext<EventContext>(b =>
+    b.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=Event_storage;Integrated Security=SSPI"));
+builder.Services.AddTransient<SqlEventStore>();
+builder.Services.AddTransient(services =>
 {
-    var store = services.GetService<Sql_event_store>();
-    return new Command_router(id => store.Get_events(id), msg => store.Publish(msg.Aggregate_id, msg.Event));
+    var store = services.GetService<SqlEventStore>();
+    return new CommandRouter(id => store.GetEvents(id), msg => store.Publish(msg.AggregateId, msg.Event));
 });
 
 builder.Services.AddControllers()

@@ -1,23 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Beersender.API.Read_store
+namespace Beersender.API.Read_store;
+
+public class ReadContext : DbContext
 {
-    public class ReadContext : DbContext
+    public ReadContext(DbContextOptions<ReadContext> options) : base(options)
     {
-        public ReadContext(DbContextOptions<ReadContext> options) : base(options)
-        {
-            
-        }
-
-        public DbSet<PackageStatus> PackageStatuses { get; set; }
     }
 
-    public class PackageStatus
-    {
-        [Key]
-        public Guid PackageId { get; set; }
+    public DbSet<PackageStatus?> PackageStatuses { get; set; } = null!;
+}
 
-        public string Status { get; set; }
-    }
+public class PackageStatus
+{
+    [Key] public Guid PackageId { get; set; }
+
+    public string? Status { get; set; }
 }
