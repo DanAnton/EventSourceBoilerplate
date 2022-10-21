@@ -6,11 +6,11 @@ namespace Beersender.Domain.Commands;
 public class Beer_package_router<TCommand>
     where TCommand : ICommand
 {
-    private readonly Func<Guid, IEnumerable<IEvent>> event_stream;
+    private readonly Func<Guid, IEnumerable<IEvent?>> event_stream;
     private readonly Action<IEvent> publish_event;
 
     public Beer_package_router(
-        Func<Guid, IEnumerable<IEvent>> Event_stream,
+        Func<Guid, IEnumerable<IEvent?>> Event_stream,
         Action<IEvent> Publish_event)
     {
         event_stream = Event_stream;
