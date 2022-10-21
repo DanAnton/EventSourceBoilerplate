@@ -18,14 +18,6 @@ namespace Beersender.API.Controllers
 			this.eventContext = eventContext;
 		}
 
-		[HttpGet]
-        public IActionResult Get()
-		{
-            eventContext.Events.FirstOrDefault();
-            return Ok();
-		}
-
-
         [HttpPost]
         public IActionResult PostCommand([FromBody] Command command)
         {
