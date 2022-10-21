@@ -55,8 +55,8 @@ public class Beer_package : Aggregate
         yield return new Shipping_label_added(command.AggregateId, command.Shipping_label);
     }
 
-    private static IEnumerable<object> Try_Send_package(Send_Package command)
+    private IEnumerable<object> Try_Send_package(Send_Package command)
     {
-        yield return new Package_sent(command.AggregateId, command.shipping_label.Is_valid());
+        yield return new Package_sent(command.AggregateId, _shippingLabel.Is_valid());
     }
 }
