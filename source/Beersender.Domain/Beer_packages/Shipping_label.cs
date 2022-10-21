@@ -8,6 +8,7 @@ public enum Shipping_provider
     FedEx
 }
 public record Shipping_label(
+    Guid labelId,
     Shipping_provider Shipping_provider,
     string Tracking_code)
 {
