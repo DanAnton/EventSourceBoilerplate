@@ -10,22 +10,22 @@ public abstract class Beersender_test
             
     }
 
-    private object[] _events;
-    protected void Given(params object[] events)
+    private IEvent[] _events;
+    protected void Given(params IEvent[] events)
     {
         _events = events;
     }
 
-    protected void When(object command)
+    protected void When(ICommand command)
     {
         var router = new Command_router(_ => _events, @event => _new_events.Add(@event));
         router.Handle_command(command);
     }
 
-    private List<object> _new_events = new();
+    private List<IEvent> _new_events = new();
 
-    protected void Then(params object[] expected_events)
+    protected void Then(params IEvent[] expected_events)
     {
-        _new_events.ToArray().Should().BeEquivalentTo(expected_events);
+        _new_events.ToArray().Should().BeEquivalentTo(expected_events, options => options.RespectingRuntimeTypes());
     }
 }
