@@ -7,11 +7,11 @@ namespace Beersender.Domain;
 public class Command_router
 {
     private readonly Func<Guid, IEnumerable<Event>> event_stream;
-    private readonly Action<Event> publish_event;
+    private readonly Action<Event_message> publish_event;
 
     public Command_router(
         Func<Guid, IEnumerable<Event>> Event_stream,
-        Action<Event> Publish_event)
+        Action<Event_message> Publish_event)
     {
         event_stream = Event_stream;
         publish_event = Publish_event;

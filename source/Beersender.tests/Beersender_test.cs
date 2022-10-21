@@ -15,7 +15,7 @@ public abstract class Beersender_test
 
     protected void When(Command command)
     {
-        var router = new Command_router(_ => _events, @event => _new_events.Add(@event));
+        var router = new Command_router(_ => _events, @event => _new_events.Add(@event.Event));
         router.Handle_command(command);
     }
 

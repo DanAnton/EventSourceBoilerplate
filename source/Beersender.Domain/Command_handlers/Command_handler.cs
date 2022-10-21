@@ -8,10 +8,10 @@ internal class Command_handler<TCommand, TAggregate>
     where TAggregate : Aggregate, new()
 {
     private readonly Func<Guid, IEnumerable<Event>> _event_stream;
-    private readonly Action<Event> _publish_event;
+    private readonly Action<Event_message> _publish_event;
 
     protected Command_handler(Func<Guid, IEnumerable<Event>> event_stream,
-        Action<Event> publish_event)
+        Action<Event_message> publish_event)
     {
         _event_stream = event_stream;
         _publish_event = publish_event;
@@ -32,7 +32,7 @@ internal class Command_handler<TCommand, TAggregate>
 
         foreach (var resulting_event in resulting_events)
         {
-            _publish_event(resulting_event);
+            _publish_event(new Event_message(command.Aggregate_id, resulting_event));
         }
     }
 }
