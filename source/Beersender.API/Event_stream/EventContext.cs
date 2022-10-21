@@ -7,6 +7,12 @@ namespace Beersender.API.Event_stream;
 // TODO migrations
 public class EventContext : DbContext
 {
+    public EventContext(DbContextOptions<EventContext> options)
+    : base(options)
+    {
+        Database.EnsureCreated();
+    }
+
     public DbSet<PersistedEvent> Events { get; set; }
 }
 

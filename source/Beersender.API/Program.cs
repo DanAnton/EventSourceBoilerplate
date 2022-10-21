@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Event_storage;Integrated Security=SSPI"));
+builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer(@"Server=DK-ECI-JHH\SQLEXPRESS;Database=WorkshopRo;Trusted_Connection=True;"));
 builder.Services.AddTransient<Command_router>(services =>
 {
     var store = services.GetService<Sql_event_store>();

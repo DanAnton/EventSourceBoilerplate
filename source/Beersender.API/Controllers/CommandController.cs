@@ -1,4 +1,5 @@
-﻿using Beersender.Domain;
+﻿using Beersender.API.Event_stream;
+using Beersender.Domain;
 using Beersender.Domain.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +10,21 @@ namespace Beersender.API.Controllers
     public class CommandController : ControllerBase
     {
         private readonly Command_router _router;
+		private readonly EventContext eventContext;
 
-        public CommandController(Command_router router)
+		public CommandController(Command_router router, EventContext eventContext)
         {
             _router = router;
-        }
+			this.eventContext = eventContext;
+		}
+
+		[HttpGet]
+        public IActionResult Get()
+		{
+            eventContext.Events.FirstOrDefault();
+            return Ok();
+		}
+
 
         [HttpPost]
         public IActionResult PostCommand([FromBody] Command command)
