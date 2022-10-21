@@ -60,8 +60,10 @@ namespace Beersender.API.JsonConverters
             {
                 throw new JsonException();
             }
-
-            command = (Command)JsonSerializer.Deserialize(ref reader, commandType);
+            var opt= new JsonSerializerOptions();
+            opt.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+            opt.PropertyNameCaseInsensitive = true;
+            command = (Command)JsonSerializer.Deserialize(ref reader, commandType, opt);
 
             if (!reader.Read() || reader.TokenType != JsonTokenType.EndObject)
             {

@@ -2,11 +2,15 @@ using Beersender.API.Event_stream;
 using Beersender.API.JsonConverters;
 using Beersender.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Options;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Event_storage;Integrated Security=SSPI"));
+builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=Beer_run;Integrated Security=SSPI"));
 builder.Services.AddTransient<Sql_event_store>();
 builder.Services.AddTransient<Command_router>(services =>
 {
@@ -19,6 +23,7 @@ builder.Services.AddControllers()
     {
         opt.JsonSerializerOptions.Converters.Add(new CommandConverter());
         opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
