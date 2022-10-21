@@ -2,6 +2,7 @@ using Beersender.Domain.Commands;
 using Beersender.Data;
 using Beersender.Domain.Events;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,10 +45,22 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/command", () =>
+app.MapPost("/create-package", (Beer_package_router<Create_package> router, [FromBody] Create_package command) =>
 {
-    // TODO
+    router.Handle_command(command);
 })
-.WithName("PostCommand");
+.WithName("PostCreatePackage");
+
+app.MapPost("/add-shipping-label", (Beer_package_router<Add_shipping_label> router, [FromBody] Add_shipping_label command) =>
+{
+    router.Handle_command(command);
+})
+.WithName("PostAddShippingLabel");
+
+app.MapPost("/send-package", (Beer_package_router<Send_package> router, [FromBody] Send_package command) =>
+{
+    router.Handle_command(command);
+})
+.WithName("PostSendPackage");
 
 app.Run();
