@@ -22,14 +22,17 @@ public class PersistedEvent
 
     private IEvent? _event;
     [NotMapped]
-    public IEvent Event
+    public IEvent? Event
     {
         get
         {
-            if (_event == null)
+            if (_event is null && !string.IsNullOrWhiteSpace(EventType) && !string.IsNullOrWhiteSpace(EventBody))
             {
                 var type = Type.GetType(EventType);
-                _event = (IEvent)JsonSerializer.Deserialize(EventBody, type);
+                if (type is not null)
+                {
+                    _event = (IEvent?)JsonSerializer.Deserialize(EventBody, type);
+                }
             }
             return _event;
         }
@@ -39,8 +42,8 @@ public class PersistedEvent
             {
                 _event = value;
 
-                EventType = _event.GetType().AssemblyQualifiedName;
-                EventBody = JsonSerializer.Serialize(_event, _event.GetType());
+                EventType = _event?.GetType().AssemblyQualifiedName;
+                EventBody = JsonSerializer.Serialize(_event);
             }
         }
     }
