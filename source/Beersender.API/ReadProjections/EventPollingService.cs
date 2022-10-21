@@ -1,39 +1,39 @@
 ﻿using Beersender.API.Event_stream;
 
-namespace Beersender.API.ReadProjections
+namespace Beersender.API.ReadProjections;
+
+public class EventPollingService : BackgroundService
 {
-    public class EventPollingService : BackgroundService
+    private readonly IServiceProvider _serviceProvider;
+    private readonly Event_router _router;
+
+    public EventPollingService(IServiceProvider serviceProvider, Event_router router)
     {
-        private readonly IServiceProvider _serviceProvider;
-        private readonly Event_router _router;
+        _serviceProvider = serviceProvider;
+        _serviceProvider = serviceProvider;
+        _router = router;
+    }
 
-        public EventPollingService(IServiceProvider serviceProvider, Event_router router)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        // TODO: this value should be persisted for checkpoints.
+        var last_event_id = 0;
+
+        while (!stoppingToken.IsCancellationRequested)
         {
-            _serviceProvider = serviceProvider;
-            _router = router;
-        }
+            using var scope = _serviceProvider.CreateScope();
+            await using var context = scope.ServiceProvider.GetService<EventContext>();
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            // TODO: this value should be persisted for checkpoints.
-            var last_event_id = 0;
-
-            while (!stoppingToken.IsCancellationRequested)
+            var newEvents = context.Events
+                .Where(e => e.Id > last_event_id)
+                .OrderBy(e => e.Id);
+            foreach (var persistedEvent in newEvents)
             {
-                using var scope = _serviceProvider.CreateScope();
-                await using var context = scope.ServiceProvider.GetService<EventContext>();
-
-                var newEvents = context.Events
-                    .Where(e => e.Id > last_event_id)
-                    .OrderBy(e => e.Id);
-                foreach (var persistedEvent in newEvents)
-                {
-                    _router.Dispatch(persistedEvent.Event);
-                    last_event_id = persistedEvent.Id;
-                }
-
-                Thread.Sleep(1000);
+                _router.Dispatch(persistedEvent.Event);
+                last_event_id = persistedEvent.Id;
             }
+
+            await Task.Delay(1000);
         }
     }
 }

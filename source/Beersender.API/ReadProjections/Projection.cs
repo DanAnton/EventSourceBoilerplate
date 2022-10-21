@@ -42,8 +42,22 @@ namespace Beersender.API.ReadProjections;
                         Status = "Created"
                     };
                     break;
+                case Shipping_label_added label_added:
+                    packageStatus = new PackageStatus
+                    {
+                        PackageId = label_added.Package_id,
+                        Status = "Label added"
+                    };
+                    break;
+                case Package_sent sent:
+                    packageStatus = new PackageStatus
+                    {
+                        PackageId = sent.Package_id,
+                        Status = "Sent"
+                    };
+                    break;
                 //TODO Add other event type
-            }
+        }
 
             var record = readDb.PackageStatuses.Find(packageStatus.PackageId);
 
