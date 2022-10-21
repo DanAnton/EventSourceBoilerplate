@@ -4,7 +4,6 @@ using Beersender.Domain.Infrastructure;
 
 namespace Beersender.API.JsonConverters
 {
-    // TODO: make this work
     public class CommandConverter : JsonConverter<Command>
     {
         private static Dictionary<string, Type> TypeLookup = new();
@@ -27,9 +26,9 @@ namespace Beersender.API.JsonConverters
         }
 
         public override Command Read(
-            ref Utf8JsonReader reader,
-            Type typeToConvert,
-            JsonSerializerOptions options)
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options)
         {
             if (reader.TokenType != JsonTokenType.StartObject)
             {
@@ -38,7 +37,7 @@ namespace Beersender.API.JsonConverters
 
             if (!reader.Read()
                     || reader.TokenType != JsonTokenType.PropertyName
-                    || reader.GetString() != "$type")
+                    || reader.GetString().ToLower() != "$type")
             {
                 throw new JsonException();
             }
@@ -48,10 +47,21 @@ namespace Beersender.API.JsonConverters
                 throw new JsonException();
             }
 
-            var type_name = reader.GetString();
-            var type = TypeLookup[type_name];
+            Command command;
+            string typeDiscriminator = reader.GetString();
+            var commandType = TypeLookup[typeDiscriminator];
 
-            Command command = (Command)JsonSerializer.Deserialize(ref reader, type);
+            
+            if (!reader.Read() || reader.GetString().ToLower() != "command")
+            {
+                throw new JsonException();
+            }
+            if (!reader.Read() || reader.TokenType != JsonTokenType.StartObject)
+            {
+                throw new JsonException();
+            }
+
+            command = (Command)JsonSerializer.Deserialize(ref reader, commandType);
 
             if (!reader.Read() || reader.TokenType != JsonTokenType.EndObject)
             {
@@ -66,9 +76,13 @@ namespace Beersender.API.JsonConverters
             Command value,
             JsonSerializerOptions options)
         {
-            var commandType = value.GetType();
+            writer.WriteStartObject();
 
-            JsonSerializer.Serialize(writer, commandType);
+            writer.WriteString("$type", value.GetType().Name);
+            writer.WritePropertyName("command");
+            JsonSerializer.Serialize(writer, value, value.GetType());
+
+            writer.WriteEndObject();
         }
     }
 }

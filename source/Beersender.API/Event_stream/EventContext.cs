@@ -46,7 +46,7 @@ public class PersistedEvent
                 _event = value;
 
                 EventType = _event.GetType().AssemblyQualifiedName;
-                EventBody = JsonSerializer.Serialize(_event);
+                EventBody = JsonSerializer.Serialize(_event, _event.GetType());
             }
         }
     }

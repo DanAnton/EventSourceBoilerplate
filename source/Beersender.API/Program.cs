@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<EventContext>(builder => builder.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=Event_storage;Integrated Security=SSPI"));
+builder.Services.AddTransient<Sql_event_store>();
 builder.Services.AddTransient<Command_router>(services =>
 {
     var store = services.GetService<Sql_event_store>();
@@ -14,7 +15,11 @@ builder.Services.AddTransient<Command_router>(services =>
 });
 
 builder.Services.AddControllers()
-    .AddJsonOptions(opt => opt.JsonSerializerOptions.Converters.Add(new CommandConverter()));
+    .AddJsonOptions(opt =>
+    {
+        opt.JsonSerializerOptions.Converters.Add(new CommandConverter());
+        opt.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
