@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Beersender.Domain.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,7 @@ public class PersistedEvent
     public DateTime Timestamp { get; set; }
 
     // TODO
+    [NotMapped]
     public Event Event { get; set; }
 }
 
