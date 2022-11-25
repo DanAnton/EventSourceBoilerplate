@@ -19,11 +19,11 @@ public class SqlEventStore
         return events.Select(e => e.Event)!;
     }
 
-    public void Publish(Guid aggregate_id, IEvent @event)
+    public void Publish(Guid aggregateId, IEvent @event)
     {
         var persistedEvent = new PersistedEvent
         {
-            AggregateId = aggregate_id,
+            AggregateId = aggregateId,
             Timestamp = DateTime.UtcNow,
             Event = @event
         };

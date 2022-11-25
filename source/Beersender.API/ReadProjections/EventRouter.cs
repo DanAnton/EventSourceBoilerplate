@@ -10,8 +10,7 @@ public class EventRouter
     {
         _allProjections = allProjections;
     }
-
-
+    
     public void Dispatch(IEvent @event)
     {
         foreach (var projection in _allProjections) projection.Dispatch(@event);

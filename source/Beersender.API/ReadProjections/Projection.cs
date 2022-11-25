@@ -40,7 +40,7 @@ public class PackageStatusUpdater : IProjection
             _ => null
         };
 
-        var record = readDb.PackageStatuses.Find(packageStatus.PackageId);
+        var record = readDb!.PackageStatuses.Find(packageStatus!.PackageId);
 
         if (record == null)
             readDb.PackageStatuses.Add(packageStatus);
