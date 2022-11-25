@@ -16,7 +16,7 @@ public class CommandRouter
         _publishEvent = publishEvent;
     }
 
-    public void Handle_command(object command)
+    public void HandleCommand(object command)
     {
         switch (command)
         {

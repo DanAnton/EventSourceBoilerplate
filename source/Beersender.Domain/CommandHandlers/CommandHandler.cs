@@ -1,7 +1,7 @@
 ﻿using Beersender.Domain.BeerPackages;
 using Beersender.Domain.Infrastructure;
 
-namespace Beersender.Domain.Command_handlers;
+namespace Beersender.Domain.CommandHandlers;
 
 internal class CommandHandler<TCommand, TAggregate>
     where TCommand : ICommand

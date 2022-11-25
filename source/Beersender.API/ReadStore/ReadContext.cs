@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Beersender.API.Read_store;
+namespace Beersender.API.ReadStore;
 
 public class ReadContext : DbContext
 {
@@ -9,7 +9,7 @@ public class ReadContext : DbContext
     {
     }
 
-    public DbSet<PackageStatus?> PackageStatuses { get; set; } = null!;
+    public DbSet<PackageStatus> PackageStatuses { get; set; } = null!;
 }
 
 public class PackageStatus

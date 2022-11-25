@@ -1,0 +1,24 @@
+{
+"$type": "CreatePackage",
+"Command": {
+    "PackageId": "ca225079-8637-4424-bd80-e4db667762ab"
+  }
+}
+
+{
+"$type": "AddShippingLabel",
+"Command": {
+    "PackageId": "ca225079-8637-4424-bd80-e4db667762ab",
+    "ShippingLabel": {
+      "ShippingProvider": 2,
+      "TrackingCode": "ABCD1234"       
+    }
+  }
+}
+
+{
+"$type": "SendPackage",
+"Command": {
+    "PackageId": "ca225079-8637-4424-bd80-e4db667762ab"
+  }
+}

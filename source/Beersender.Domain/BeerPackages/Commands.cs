@@ -1,4 +1,4 @@
-﻿using Beersender.Domain.Command_handlers;
+﻿using Beersender.Domain.CommandHandlers;
 using Beersender.Domain.Infrastructure;
 
 namespace Beersender.Domain.BeerPackages;

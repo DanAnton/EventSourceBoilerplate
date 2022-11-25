@@ -1,7 +1,7 @@
 using Beersender.API.EventStream;
 using Beersender.API.JsonConverters;
-using Beersender.API.Read_store;
 using Beersender.API.ReadProjections;
+using Beersender.API.ReadStore;
 using Beersender.Domain;
 using Microsoft.EntityFrameworkCore;
 

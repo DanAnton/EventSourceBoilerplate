@@ -1,4 +1,4 @@
-﻿using Beersender.API.Read_store;
+﻿using Beersender.API.ReadStore;
 using Beersender.Domain.BeerPackages;
 using Beersender.Domain.Infrastructure;
 

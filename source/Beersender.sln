@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beersender.Demo", "Beersend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beersender.tests", "Beersender.tests\Beersender.tests.csproj", "{EFCA5636-7B14-48BD-A899-BD50295FB3A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beersender.API", "Beersender.API\Beersender.API.csproj", "{0FCC866C-D0F0-4607-AFC9-7CB27346B7E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Beersender.API", "Beersender.API\Beersender.API.csproj", "{0FCC866C-D0F0-4607-AFC9-7CB27346B7E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{5AC1A8D9-E264-4DB0-A698-39D28BD98197}"
+	ProjectSection(SolutionItems) = preProject
+		test-data.txt = test-data.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
